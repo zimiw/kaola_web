@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html ng-app="kaola">
+<html>
 
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 		<!-- 新 Bootstrap 核心 CSS 文件 -->
 		<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
-		<link rel="stylesheet" href="css/index.css" />
+		<link rel="stylesheet" type="text/css" media="screen and (max-width: 800px)" href="css/index_tinyScreen.css" />
+		<link rel="stylesheet" type="text/css" media="screen and (min-width: 800px) and (max-width :1200px)" href="css/index_middleScreen.css" />
+		<link rel="stylesheet" type="text/css" media="screen and (min-width: 1200px)" href="css/index_bigScreen.css" />
 		<title></title>
 	</head>
 
-	<body ng-controller="controller">
+	<body>
 		<header>
 			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 				<!-- Indicators -->
@@ -23,19 +25,19 @@
 				<!-- Wrapper for slides -->
 				<div class="carousel-inner" role="listbox">
 					<div class="item active">
-						<img src="img/5.jpg" alt="兰博基尼" style="width: 100%;">
+						<img src="img/5.jpg" alt="兰博基尼">
 						<div class="carousel-caption">
 							兰博基尼
 						</div>
 					</div>
 					<div class="item">
-						<img src="img/5.jpg" alt="法拉利" style="width: 100%;">
+						<img src="img/5.jpg" alt="法拉利">
 						<div class="carousel-caption">
 							法拉利
 						</div>
 					</div>
 					<div class="item">
-						<img src="img/5.jpg" alt="恶口地方" style="width: 100%;">
+						<img src="img/5.jpg" alt="恶口地方">
 						<div class="carousel-caption">
 							恶口地方
 						</div>
@@ -53,157 +55,242 @@
 				</a>
 			</div>
 		</header>
+		<section ng-app="navTabs" ng-controller="navTabsCtr">
+			<nav class="navbar navbar-default">
+				<div role="tabpanel">
+					<!-- Nav tabs -->
+					<ul class="nav nav-pills" role="tablist" id="myTab">
 
-		<nav class="navbar navbar-default">
-			<div role="tabpanel">
-				<!-- Nav tabs -->
-				<ul class="nav nav-pills " role="tablist" id="myTab">
-					<!--<li role="presentation"><a href="#" role="button" aria-expanded="true"><span class="glyphicon glyphicon-glass"></span></a>
-					</li>-->
-					<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a>
+						<li ng-repeat="tab in tabs" role="presentation" class="{{tab.class}}">
+							<a ng-click="shift(tab.name)" href="#{{tab.name}}" aria-controls="{{tab.name}}" role="tab" data-toggle="tab" ng-bind="tab.name" class="text-capitalize"></a>
+						</li>
+						<!--<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a>
 					</li>
 					<li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a>
 					</li>
 					<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a>
 					</li>
 					<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a>
-					</li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span></a>
-						<ul class="dropdown-menu dropdown-menu-right" role="menu">
-							<li><a href="javascript:order(0);">按价格排序</a>
-							</li>
-							<li><a href="javascript:order(1);">按月售量排序</a>
-							</li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-		</nav>
-		<!-- Tab panes -->
-		<div class="tab-content">
-			<div role="tabpanel" class="tab-pane active" id="home">
+					</li>-->
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span></a>
+							<ul class="dropdown-menu dropdown-menu-right" role="menu">
+								<li><a href="javascript:order(0);">按价格排序</a>
+								</li>
+								<li><a href="javascript:order(1);">按月售量排序</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</nav>
+			<!-- Tab panes -->
+			<div class="tab-content">
+				<div ng-repeat="tab in tabs" role="tabpanel" class="tab-pane {{tab.class}}" id="{{tab.name}}">
 
-				<div class="col-sm-10 col-md-6 col-lg-3">
-					<div class="thumbnail" style="background: #cccccc;">
-						<img src="img/1.jpg" alt="farrir" style="width:35%;border-radius: 4px; float: left;">
-						<div class="caption">
-							<div class="first-line"><b class="title" style="font-size: 18px;">法拉利468</b>
-								<a href="javascript:alert('i am in');" role="button" aria-expanded="true"><span class="glyphicon glyphicon-heart-empty"></span></a>
-								<div style="margin-left: 5px;"><em>450w</em><span>元</span>
+					<div class="col-sm-10 col-md-6 col-lg-3">
+						<div class="thumbnail">
+							<div class="img-wrap">
+								<img src="img/1.jpg" alt="farrir" class="img-rounded">
+							</div>
+							<div class="caption">
+								<div class="first-line">
+									<b class="title">法拉利468</b>
+									<a href="javascript:alert('i am in');" role="button" aria-expanded="true"><span class="glyphicon glyphicon-heart-empty"></span></a>
+									<div><em>450w</em><span>元</span>
+									</div>
+								</div>
+								<div class="second-line">
+									<div>已点<strong>4</strong>份</div>
+									<div>月售<strong>4</strong>份</div>
+								</div>
+								<div class="third-line">
+									<a class="btn btn-primary" type="button">
+										来一份 <span class="badge">0</span>
+									</a>
+									<a class="btn btn-danger" type="button">
+										取消
+									</a>
 								</div>
 							</div>
-							<div class="second-line">
-								<div>已点<strong>4</strong>份</div>
-								<div>月售<strong>4</strong>份</div>
-							</div>
-							<div class="third-line">
-								<a class="btn btn-primary" type="button">
-										来一份 <span class="badge">0</span>
-									</a>
-								<a class="btn btn-danger" type="button">
-										取消
-									</a>
-							</div>
+							<div class="clearfix"></div>
 						</div>
-
 					</div>
-				</div>
-				<div class="col-sm-10 col-md-6 col-lg-4">
-					<div class="thumbnail">
-						<img src="img/1.jpg" alt="farrir" style="width:35%;border-radius: 4px; float: left;">
-						<div class="caption" style="width: 65%; float: left;">
-							<h3 style="margin:0 0;">法拉利468</h3>
-							<p>
-								<div>已点<strong>4</strong>份</div>
-								<div>月售<strong>4</strong>份</div>
-							</p>
-						</div>
-						<p>
-							<a class="btn btn-primary" type="button">
+					<div class="col-sm-10 col-md-6 col-lg-3">
+						<div class="thumbnail">
+							<div class="img-wrap">
+								<img src="img/1.jpg" alt="farrir" class="img-rounded">
+							</div>
+							<div class="caption">
+								<div class="first-line">
+									<b class="title">法拉利468</b>
+									<a href="javascript:alert('i am in');" role="button" aria-expanded="true"><span class="glyphicon glyphicon-heart-empty"></span></a>
+									<div><em>450w</em><span>元</span>
+									</div>
+								</div>
+								<div class="second-line">
+									<div>已点<strong>4</strong>份</div>
+									<div>月售<strong>4</strong>份</div>
+								</div>
+								<div class="third-line">
+									<a class="btn btn-primary" type="button">
 										来一份 <span class="badge">0</span>
 									</a>
-							<a class="btn btn-danger" type="button">
+									<a class="btn btn-danger" type="button">
 										取消
 									</a>
-						</p>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+						</div>
 					</div>
-				</div>
-				<div class="col-sm-10 col-md-6 col-lg-4">
-					<div class="thumbnail">
-						<img src="img/1.jpg" alt="farrir" style="width:35%;border-radius: 4px; float: left;">
-						<div class="caption" style="width: 65%; float: left;">
-							<h3 style="margin:0 0;">法拉利468</h3>
-							<div>已点<strong>4</strong>份</div>
-							<div>月售<strong>4</strong>份</div>
-							<p>
-								<a class="btn btn-primary" type="button">
+					<div class="col-sm-10 col-md-6 col-lg-3">
+						<div class="thumbnail">
+							<div class="img-wrap">
+								<img src="img/1.jpg" alt="farrir" class="img-rounded">
+							</div>
+							<div class="caption">
+								<div class="first-line">
+									<b class="title">法拉利468</b>
+									<a href="javascript:alert('i am in');" role="button" aria-expanded="true"><span class="glyphicon glyphicon-heart-empty"></span></a>
+									<div><em>450w</em><span>元</span>
+									</div>
+								</div>
+								<div class="second-line">
+									<div>已点<strong>4</strong>份</div>
+									<div>月售<strong>4</strong>份</div>
+								</div>
+								<div class="third-line">
+									<a class="btn btn-primary" type="button">
 										来一份 <span class="badge">0</span>
 									</a>
-								<a class="btn btn-danger" type="button">
+									<a class="btn btn-danger" type="button">
 										取消
 									</a>
-							</p>
+								</div>
+							</div>
+							<div class="clearfix"></div>
 						</div>
-
+					</div>
+					<div class="col-sm-10 col-md-6 col-lg-3">
+						<div class="thumbnail">
+							<div class="img-wrap">
+								<img src="img/1.jpg" alt="farrir" class="img-rounded">
+							</div>
+							<div class="caption">
+								<div class="first-line">
+									<b class="title">法拉利468</b>
+									<a href="javascript:alert('i am in');" role="button" aria-expanded="true"><span class="glyphicon glyphicon-heart-empty"></span></a>
+									<div><em>450w</em><span>元</span>
+									</div>
+								</div>
+								<div class="second-line">
+									<div>已点<strong>4</strong>份</div>
+									<div>月售<strong>4</strong>份</div>
+								</div>
+								<div class="third-line">
+									<a class="btn btn-primary" type="button">
+										来一份 <span class="badge">0</span>
+									</a>
+									<a class="btn btn-danger" type="button">
+										取消
+									</a>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+					<div class="col-sm-10 col-md-6 col-lg-3">
+						<div class="thumbnail">
+							<div class="img-wrap">
+								<img src="img/1.jpg" alt="farrir" class="img-rounded">
+							</div>
+							<div class="caption">
+								<div class="first-line">
+									<b class="title">法拉利468</b>
+									<a href="javascript:alert('i am in');" role="button" aria-expanded="true"><span class="glyphicon glyphicon-heart-empty"></span></a>
+									<div><em>450w</em><span>元</span>
+									</div>
+								</div>
+								<div class="second-line">
+									<div>已点<strong>4</strong>份</div>
+									<div>月售<strong>4</strong>份</div>
+								</div>
+								<div class="third-line">
+									<a class="btn btn-primary" type="button">
+										来一份 <span class="badge">0</span>
+									</a>
+									<a class="btn btn-danger" type="button">
+										取消
+									</a>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<br />
-			<div role="tabpanel" class="tab-pane" id="profile">
-				<div class="col-sm-10 col-md-4 col-lg-3">
-					<div class="thumbnail">
-						<img src="img/1.jpg" alt="frriar">
-						<div class="caption">
-							<h3>Thumbnail label</h3>
-							<p>dfjlsfjsldfjsi打碎了反抗军水立方健身房康师傅祭祀俄方</p>
-							<p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a>
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-10 col-md-4 col-lg-3">
-					<div class="thumbnail">
-						<img src="img/1.jpg" alt="frriar">
-						<div class="caption">
-							<h3>Thumbnail label</h3>
-							<p>dfjlsfjsldfjsi打碎了反抗军水立方健身房康师傅祭祀俄方</p>
-							<p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a>
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-10 col-md-4 col-lg-3">
-					<div class="thumbnail">
-						<img src="img/1.jpg" alt="frriar">
-						<div class="caption">
-							<h3>Thumbnail label</h3>
-							<p>dfjlsfjsldfjsi打碎了反抗军水立方健身房康师傅祭祀俄方</p>
-							<p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a>
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-10 col-md-4 col-lg-3">
-					<div class="thumbnail">
-						<img src="img/1.jpg" alt="frriar">
-						<div class="caption">
-							<h3>Thumbnail label</h3>
-							<p>dfjlsfjsldfjsi打碎了反抗军水立方健身房康师傅祭祀俄方</p>
-							<p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a>
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div role="tabpanel" class="tab-pane" id="messages">i am in message</div>
-			<div role="tabpanel" class="tab-pane" id="settings">i am in settings</div>
-		</div>
+		</section>
+
 		<footer>
-			<div style="height:40px;width: 100%;opacity: 0.4; background: black;" class='navbar-fixed-bottom'>
-				<span>总计</span>
+			<div class='navbar-fixed-bottom'>
+				<button class="btn btn-primary pull-left" onclick="showMenu()">查看已点</button>
+				<div id="menu_ordered_count" class="footer-bar"><span>已点:</span><em>23</em>份</div>
+				<div id="menu_ordered_sum" class="footer-bar"><span>总计:</span><em>1110</em>元</div>
+				<button class="btn btn-primary pull-right" onclick="order()">去付钱</button>
 			</div>
 		</footer>
+
+		<!--<div id="menu_ordered" class="menu-ordered">-->
+		<div class="panel panel-default" id="menu_ordered">
+			
+			<div class="panel-heading">
+				<a style="float: right;" href="javascript:hideMenu();" role="button" aria-expanded="true"><span class="glyphicon glyphicon-remove"></span></a>您已订购：</div>
+			<table class="table table-bordered">
+				<tr>
+					<th>名车功能</th>
+					<th>单价(元)</th>
+					<th>数量</th>
+					<th>总价(元)</th>
+				</tr>
+				<tr>
+					<td>法拉利</td>
+					<td>450</td>
+					<td style="text-align: center;">
+						<a href="javascript:alert('i am in');" role="button" aria-expanded="true"><span class="glyphicon glyphicon-minus"></span></a>
+						<span>2</span>
+						<a href="javascript:alert('i am in');" role="button" aria-expanded="true"><span class="glyphicon glyphicon-plus"></span></a>
+					</td>
+					<td>900</td>
+				</tr>
+				<tr>
+					<td>兰博基尼</td>
+					<td>850</td>
+					<td style="text-align: center;">
+						<a href="javascript:alert('i am in');" role="button" aria-expanded="true"><span class="glyphicon glyphicon-minus"></span></a>
+						<span>2</span>
+						<a href="javascript:alert('i am in');" role="button" aria-expanded="true"><span class="glyphicon glyphicon-plus"></span></a>
+					</td>
+					<td>900</td>
+				</tr>
+				<tr>
+					<td>宾利</td>
+					<td>450</td>
+					<td style="text-align: center;">
+						<a href="javascript:alert('i am in');" role="button" aria-expanded="true"><span class="glyphicon glyphicon-minus"></span></a>
+						<span>2</span>
+						<a href="javascript:alert('i am in');" role="button" aria-expanded="true"><span class="glyphicon glyphicon-plus"></span></a>
+					</td>
+					<td>900</td>
+				</tr>
+				<tr>
+					<td>总计</td>
+					<td></td>
+					<td></td>
+					<td>1900</td>
+				</tr>
+			</table>
+		</div>
 	</body>
 	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 	<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
@@ -214,10 +301,17 @@
 	<script type="text/javascript" src="js/index.js"></script>
 	<script>
 		/*(function() {
-																							$('#myTab a:last').tab('show');
-																						})();*/
+																															$('#myTab a:last').tab('show');
+																														})();*/
 		function order(type) {
 			alert(type);
+		}
+
+		function showMenu() {
+			$('#menu_ordered').show();
+		}
+		function hideMenu(){
+			$('#menu_ordered').hide();
 		}
 	</script>
 
