@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="navTabs" >
 
 	<head>
 		<meta charset="utf-8" />
@@ -12,7 +12,7 @@
 		<title>考拉便当-预订主页</title>
 	</head>
 
-	<body>
+	<body ng-controller="navTabsCtr" ng-init="sum='0'">
 		<header>
 			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 				<!-- Indicators -->
@@ -55,14 +55,14 @@
 				</a>
 			</div>
 		</header>
-		<section ng-app="navTabs" ng-controller="navTabsCtr">
+		<section>
 			<nav class="navbar navbar-default">
 				<div role="tabpanel">
 					<!-- Nav tabs -->
 					<ul class="nav nav-pills" role="tablist" id="myTab">
 
 						<li ng-repeat="tab in tabs" role="presentation" class="{{tab.class}}"">
-							<a href="#{{tab.id}}" aria-controls="{{tab.name}}" role="tab" data-toggle="tab" ng-bind="tab.name" class="text-capitalize" onclick="showMenu({{tab.id}})"></a>
+							<a href="#{{tab.id}}" aria-controls="{{tab.name}}" role="tab" data-toggle="tab" ng-bind="tab.name" class="text-capitalize" ng-click="showMenu(tab.id)"></a>
 						</li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"><span class="glyphicon glyphicon-sort-by-attributes-alt"></span></a>
@@ -97,8 +97,8 @@
 									<div>月售<strong ng-bind="item.monthCount"></strong>份</div>
 								</div>
 								<div class="third-line">
-									<a class="btn btn-primary" type="button" onclick="javscript:addToOrder(this)">来一份<span class="badge">0</span></a>
-									<a class="btn btn-danger" type="button" onclick="javscript:reduceOrder(this)">取消</a>
+									<a class="btn btn-primary" type="button"  ng-click="addToOrder(item.id)">来一份<span id="{{'span_' + item.id}}" class="badge">0</span></a>
+									<a class="btn btn-danger" type="button" ng-click="reduceOrder(item.id)">取消</a>
 								</div>
 							</div>
 							<div class="clearfix"></div>
@@ -111,9 +111,9 @@
 
 		<footer>
 			<div class='navbar-fixed-bottom'>
-				<button class="btn btn-primary pull-left" onclick="showOrdered()">查看已点</button>
-				<div id="menu_ordered_count" class="footer-bar"><span>已点:</span><em>23</em>份</div>
-				<div id="menu_ordered_sum" class="footer-bar"><span>总计:</span><em>1110</em>元</div>
+				<button class="btn btn-primary pull-left" ng-click="showOrdered()">查看已点</button>
+				<div id="menu_ordered_count" class="footer-bar"><span>已点:</span><em ng-bind="cart.getTotalCount()"></em>份</div>
+				<div id="menu_ordered_sum" class="footer-bar"><span>总计:</span><em ng-bind="cart.getTotalMoney()"></em>元</div>
 				<button class="btn btn-primary pull-right" onclick="order()">去付钱</button>
 			</div>
 		</footer>
@@ -129,41 +129,21 @@
 					<th>数量</th>
 					<th>总价(元)</th>
 				</tr>
-				<tr>
-					<td>法拉利</td>
-					<td>450</td>
+				<tr ng-repeat="item in hasOrdered.orders">
+					<td ng-bind="item.name"></td>
+					<td ng-bind="item.price"></td>
 					<td style="text-align: center;">
 						<a href="javascript:alert('i am in');" role="button" aria-expanded="true"><span class="glyphicon glyphicon-minus"></span></a>
-						<span>2</span>
+						<span ng-bind="item.count"></span>
 						<a href="javascript:alert('i am in');" role="button" aria-expanded="true"><span class="glyphicon glyphicon-plus"></span></a>
 					</td>
-					<td>900</td>
-				</tr>
-				<tr>
-					<td>兰博基尼</td>
-					<td>850</td>
-					<td style="text-align: center;">
-						<a href="javascript:alert('i am in');" role="button" aria-expanded="true"><span class="glyphicon glyphicon-minus"></span></a>
-						<span>2</span>
-						<a href="javascript:alert('i am in');" role="button" aria-expanded="true"><span class="glyphicon glyphicon-plus"></span></a>
-					</td>
-					<td>900</td>
-				</tr>
-				<tr>
-					<td>宾利</td>
-					<td>450</td>
-					<td style="text-align: center;">
-						<a href="javascript:alert('i am in');" role="button" aria-expanded="true"><span class="glyphicon glyphicon-minus"></span></a>
-						<span>2</span>
-						<a href="javascript:alert('i am in');" role="button" aria-expanded="true"><span class="glyphicon glyphicon-plus"></span></a>
-					</td>
-					<td>900</td>
+					<td ng-bind="item.price*item.count"></td>
 				</tr>
 				<tr>
 					<td>总计</td>
 					<td></td>
 					<td></td>
-					<td>1900</td>
+					<td ng-bind="hasOrdered.sum"></td>
 				</tr>
 			</table>
 		</div>
@@ -178,16 +158,14 @@
 	<script type="text/javascript" src="angular/angular.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
 	<script>
+	
 		/*(function() {
-																															$('#myTab a:last').tab('show');
+																											$('#myTab a:last').tab('show');
 																														})();*/
 		function order(type) {
 			alert(type);
 		}
 
-		function showOrdered() {
-			$('#menu_ordered').show();
-		}
 		function hideMenu(){
 			$('#menu_ordered').hide();
 		}
