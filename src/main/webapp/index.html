@@ -133,9 +133,9 @@
 					<td ng-bind="item.name"></td>
 					<td ng-bind="item.price"></td>
 					<td style="text-align: center;">
-						<a href="javascript:alert('i am in');" role="button" aria-expanded="true"><span class="glyphicon glyphicon-minus"></span></a>
+						<a role="button" aria-expanded="true" ng-click="reduceOne(item.id)"><span class="glyphicon glyphicon-minus"></span></a>
 						<span ng-bind="item.count"></span>
-						<a href="javascript:alert('i am in');" role="button" aria-expanded="true"><span class="glyphicon glyphicon-plus"></span></a>
+						<a href="javascript:" role="button" aria-expanded="true" ng-click="addOne(item.id)"><span class="glyphicon glyphicon-plus"></span></a>
 					</td>
 					<td ng-bind="item.price*item.count"></td>
 				</tr>
