@@ -248,6 +248,18 @@ navTabs.controller("navTabsCtr", ['$scope', '$compile', function($scope, $compil
 		$scope.cart.addItem(id);
 
 	};
+	
+	$scope.addOne = function(id){
+		$scope.cart.addItem(id);
+		$scope.hasOrdered.orders = $scope.cart.getHasOrdered();
+		$scope.hasOrdered.sum = $scope.cart.getTotalMoney();
+	};
+	
+	$scope.reduceOne = function(id){
+		$scope.cart.removeItem(id);
+		$scope.hasOrdered.orders = $scope.cart.getHasOrdered();
+		$scope.hasOrdered.sum = $scope.cart.getTotalMoney();
+	};
 
 	/**
 	 *  点击取消的操作
