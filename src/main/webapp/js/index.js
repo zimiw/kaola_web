@@ -2,7 +2,7 @@ var navTabs = angular.module("navTabs", []);
 
 navTabs.controller("navTabsCtr", ['$scope', '$compile', function($scope, $compile) {
 
-	$scope.sum = 0;
+	$scope.sum = 1;
 
 	/**
 	 * 生成数据结构
